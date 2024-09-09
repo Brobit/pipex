@@ -12,7 +12,8 @@ LIBFT_FLAG = -lft_complete
 
 INCLUDES = -I ./Includes/
 
-SOURCES = ./Sources/main.c\
+SOURCES = 	./Sources/main.c\
+			./Sources/utils.c
 
 OBJS = ${SOURCES:.c=.o}
 
