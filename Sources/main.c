@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:31:59 by almarico          #+#    #+#             */
-/*   Updated: 2024/09/09 20:14:19 by almarico         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:53:57 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	father_processus(char *outfile, char *cmd_line, int *pipefd, char **env)
 {
 	int	outfile_fd;
 
-	outfile_fd = open(outfile, O_WRONLY | O_CREAT, 0666);
+	outfile_fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (outfile_fd == -1)
 		error(ERR_OUTFILE);
 	close(pipefd[1]);
