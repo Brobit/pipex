@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:32:37 by almarico          #+#    #+#             */
-/*   Updated: 2024/09/09 20:01:47 by almarico         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:20:20 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 // # include <sys/types.h>
 // # include <sys/stat.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 # define SUCCESS			0
 # define FAIL				1

@@ -1,4 +1,4 @@
-NAME = libft_complete.a
+NAME = libftcomplete.a
 LIB_GNL = get_next_line/gnl.a
 LIB_PRINTF = printf/libftprintf.a
 LIB_LIBFT = libft/libft.a

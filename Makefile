@@ -6,9 +6,9 @@ FLAGS = -g -Wall -Wextra -Werror
 
 LIBFT_DIR = ./libft-complete
 
-LIBFT_LIB = ${LIBFT_DIR}/libft_complete.a
+LIBFT_LIB = ${LIBFT_DIR}/libftcomplete.a
 
-LIBFT_FLAG = -lft_complete
+LIBFT_FLAG = -lftcomplete
 
 INCLUDES = -I ./Includes/
 

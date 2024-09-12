@@ -6,11 +6,13 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:31:59 by almarico          #+#    #+#             */
-/*   Updated: 2024/09/10 10:53:57 by almarico         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:25:40 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/pipex.h"
+#include <sys/wait.h>
+#include <unistd.h>
 
 void	path(char *cmd_line, char **env)
 {
@@ -41,7 +43,7 @@ void	path(char *cmd_line, char **env)
 	return (free_all(all_path, cmd, cmd_to_add), error(ERR_PATH));
 }
 
-void	son_processus(char *infile, char *cmd_line, int *pipefd, char **env)
+void	start_proces1(char *infile, char *cmd_line, int *pipefd, char **env)
 {
 	int	infile_fd;
 
@@ -54,7 +56,7 @@ void	son_processus(char *infile, char *cmd_line, int *pipefd, char **env)
 	path(cmd_line, env);
 }
 
-void	father_processus(char *outfile, char *cmd_line, int *pipefd, char **env)
+void	start_process2(char *outfile, char *cmd_line, int *pipefd, char **env)
 {
 	int	outfile_fd;
 
@@ -70,17 +72,27 @@ void	father_processus(char *outfile, char *cmd_line, int *pipefd, char **env)
 int	main(int argc, char **argv, char **env)
 {
 	int		pipefd[2];
-	pid_t	son_pid;
+	pid_t	process1;
+	pid_t	process2;
+	int		waiter;
 
 	if (argc != 5)
 		error(ERR_ARGC);
 	if (pipe(pipefd) == -1)
 		error(ERR_PIPE);
-	son_pid = fork();
-	if (son_pid == -1)
+	process1 = fork();
+	if (process1 == -1)
 		error(ERR_FORK);
-	else if (son_pid == 0)
-		son_processus(argv[1], argv[2], pipefd, env);
-	father_processus(argv[4], argv[3], pipefd, env);
+	else if (process1 == 0)
+		start_proces1(argv[1], argv[2], pipefd, env);
+	process2 = fork();
+	if (process2 == -1)
+		error(ERR_FORK);
+	else if (process2 == 0)
+		start_process2(argv[4], argv[3], pipefd, env);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	waitpid(process1, &waiter, 0);
+	waitpid(process2, &waiter, 0);
 	return (SUCCESS);
 }
